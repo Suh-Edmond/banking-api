@@ -27,7 +27,9 @@ class User extends Authenticatable
         'box_number',
         'email',
         'password',
-
+        'gender',
+        'dob',
+        'pob'
     ];
 
     /**

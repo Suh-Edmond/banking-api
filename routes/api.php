@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('public/auth')->group(function() {
+    Route::post('register', [AuthenticationController::class, 'registerUser']);
+    Route::post('login', [AuthenticationController::class, 'loginUser']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::prefix('protected/users')->middleware('IsCustomer')->group(function () {
+
+    });
 });
