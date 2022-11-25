@@ -21,6 +21,9 @@ class CreateAccountsTable extends Migration
             $table->double('current_balance', 10, 2)->default(10000.00);
             $table->double('available_balance', 10, 2)->default(10000.00);
             $table->enum('account_type', ['CURRENT', 'SAVING']);
+            $table->string('telephone')->unique();
+            $table->string('bank_name');
+            $table->string('bank_code');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

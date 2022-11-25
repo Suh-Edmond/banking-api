@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\AuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,9 @@ Route::prefix('public/auth')->group(function() {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::prefix('protected/users')->middleware('IsCustomer')->group(function () {
-
+    Route::prefix('protected')->middleware('IsCustomer')->group(function () {
+        Route::post('accounts', [AccountController::class, 'createAccount']);
+        Route::get('accounts/{id}', [AccountController::class, 'getAccountInfo']);
+        Route::post('account/check-balance', [AccountController::class, 'checkAccountBalance']);
     });
 });

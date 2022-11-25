@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Http\Resources\UserResource;
-use App\Interfaces\AuthenticationInterface;
+use App\Interfaces\Auth\AuthenticationInterface;
 use App\Models\Role;
 use App\Models\User;
-use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Hash;
 use App\Constants\Roles;
 use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Validation\ValidationException;
 
 class AuthenticationService implements AuthenticationInterface {
-
-    use ResponseTrait;
 
     public function registerUser($request)
     {

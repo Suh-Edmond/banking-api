@@ -8,7 +8,7 @@ class UserResource extends JsonResource
 {
     private $token;
 
-    public function __construct($resource, $token = null)
+    public function __construct($resource, $token)
     {
         parent::__construct($resource);
         $this->token = $token;

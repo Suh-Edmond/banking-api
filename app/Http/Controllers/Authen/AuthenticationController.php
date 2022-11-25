@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Authen;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
+use App\Services\Auth\AuthenticationService;
 use App\Http\Requests\RegisterUserRequest;
-use App\Services\AuthenticationService;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 
 class AuthenticationController extends Controller
 {
@@ -19,7 +19,6 @@ class AuthenticationController extends Controller
 
     public function registerUser(RegisterUserRequest $registerUserRequest)
     {
-
         $this->authenticationService->registerUser($registerUserRequest);
 
         return $this->sendResponse(null, "User has been registered successfully", 201);

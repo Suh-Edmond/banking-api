@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -54,11 +55,15 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if($exception instanceof ModelNotFoundException && $request->wantsJson()){
-            return response()->json(['message' => "Resource not found", "status"=> "404"], 404);
+            return response()->json(['message' => "Resource not found", "status"=> 404], 404);
         }
 
         if($exception instanceof UnauthorizedException && $request->wantsJson()) {
             return response()->json(["message" => "The provided Credentials are Invalid", "status" => 401], 401);
+        }
+
+        if($exception instanceof ResourceNotFoundException && $request->wantsJson()) {
+            return response()->json(["message"  => "User account not found", "status" => 404], 404);
         }
 
         return parent::render($request, $exception);

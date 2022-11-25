@@ -14,9 +14,10 @@ class Account extends Model
         'user_id',
         'account_type',
         'status',
-        'current_balance',
-        'available_balance',
-        'account_number'
+        'account_number',
+        'telephone',
+        'bank_name',
+        'bank_code'
     ];
 
 
