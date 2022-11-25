@@ -32,9 +32,11 @@ class UserResource extends JsonResource
             'telephone'      => $this->telephone,
             'location'       => $this->location,
             'gender'         => $this->gender,
+            'country'        => $this->country,
+            'box_number'     => $this->box_number,
             'created_at'     => $this->created_at,
             'updated_at'     => $this->updated_at,
-            'roles'          => $this->roles,
+            'roles'          => RoleResource::collection($this->roles),
             'token'          => $this->token,
         ];
     }

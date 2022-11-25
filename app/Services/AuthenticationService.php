@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Hash;
 use App\Constants\Roles;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticationService implements AuthenticationInterface {
 
@@ -38,18 +40,14 @@ class AuthenticationService implements AuthenticationInterface {
 
     public function loginUser($request)
     {
-        $user = User::where('telephone', $request->telephone)->orwhere('email', $request->email)->firstOrFail();
+        $user = User::where('email', $request->email)->first();
 
-        if (!Hash::check($request->password, $user->password)) {
-
-            return $this->sendError('Unauthorized', 'Bad Credentials', 401);
-
-        } else {
-
-            $token = $this->generateToken($user);
-
-            return new UserResource($user, $token);
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw new UnauthorizedException();
         }
+
+        $token = $this->generateToken($user);
+        return new UserResource($user, $token);
     }
 
 
