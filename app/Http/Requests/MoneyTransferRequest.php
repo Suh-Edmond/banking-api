@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAccountRequest extends FormRequest
+class MoneyTransferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class CreateAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'          => 'required|string',
-            'account_type_id'  => 'required|in:CURRENT, SAVING',
-            'telephone'         => 'required|max:9'
+            'to_account_number'     => 'required|string',
+            'from_account_number'   => 'required|string',
+            'amount_deposited'      => 'required|min:1000'
         ];
     }
 }

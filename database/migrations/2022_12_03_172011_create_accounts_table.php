@@ -17,16 +17,15 @@ class CreateAccountsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->string('account_number');
+            $table->uuid('account_type_id');
             $table->enum('status', ['ACTIVE', 'INACTIVE']);
-            $table->double('current_balance', 10, 2)->default(10000.00);
-            $table->double('available_balance', 10, 2)->default(10000.00);
-            $table->enum('account_type', ['CURRENT', 'SAVING']);
+            $table->double('current_balance', 19, 2)->default(10000.00);
+            $table->double('available_balance', 19, 2)->default(10000.00);
             $table->string('telephone')->unique();
-            $table->string('bank_name');
-            $table->string('bank_code');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('account_type_id')->references('id')->on('account_types');
         });
     }
 

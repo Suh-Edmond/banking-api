@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
 
-class Role extends Model
+class TransferType extends Model
 {
     use HasFactory, Uuid;
 
@@ -15,7 +15,8 @@ class Role extends Model
         'description'
     ];
 
-    public function users() {
-        return $this->hasMany(User::class);
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
