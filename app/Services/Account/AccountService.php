@@ -26,8 +26,6 @@ class AccountService implements AccountInterface {
             'status'         => AccountStatus::ACTIVE,
             'account_number' => $this->generateAccountNumber(),
             'telephone'      => $request->telephone,
-            'bank_name'      => BankInfo::BANK_NAME,
-            'bank_code'      => BankInfo::BANK_CODE
         ]);
 
         return new AccountResource($created, $user);

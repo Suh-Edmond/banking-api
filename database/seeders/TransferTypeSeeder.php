@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\TransferType;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
-class RoleSeeder extends Seeder
+class TransferTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,8 @@ class RoleSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        Role::create([
-            'name'          => 'CUSTOMER',
-            'description'   => $faker->text
-        ]);
-
-        Role::create([
-            'name'          => 'SUPPORT_BENCH',
+        TransferType::create([
+            'name'   => 'WIRED_TRANSFER',
             'description'   => $faker->text
         ]);
     }

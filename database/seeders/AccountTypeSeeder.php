@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\AccountType;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
-class RoleSeeder extends Seeder
+class AccountTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,13 @@ class RoleSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        Role::create([
-            'name'          => 'CUSTOMER',
+        AccountType::create([
+            'name'          => 'CURRENT_ACCOUNT',
             'description'   => $faker->text
         ]);
 
-        Role::create([
-            'name'          => 'SUPPORT_BENCH',
+        AccountType::create([
+            'name'          => 'SAVING_ACCOUNT',
             'description'   => $faker->text
         ]);
     }
