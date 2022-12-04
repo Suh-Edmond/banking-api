@@ -1,31 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Traits;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
+trait ResponseTrait
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-     /**
+    /**
      * return error response.
      *
      * @return \Illuminate\Http\Response
      */
     public static function sendError($error, $message, $code = 404)
     {
-    	$response = [
+        $response = [
             'success' => false,
             'error'   => $error,
             'message' => $message,
             'code'    => $code
         ];
 
-        return response($response);
+
+        return response()->json($response);
     }
 
 
@@ -34,17 +28,17 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public static function sendResponse($data = null, $message, $code)
+    public static function sendResponse($result, $message, $code)
     {
-    	$response = [
+        $response = [
             'success' => true,
+            'data'    => $result,
             'message' => $message,
             'code'    => $code
         ];
-        if(!empty($data)) {
-            $response['data'] = $data;
-        }
+
 
         return response()->json($response);
     }
+
 }
