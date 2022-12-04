@@ -44,7 +44,6 @@ class TransactionService implements TransactionInterface {
                     'transaction_code'      => $this->generateTransactionCode(),
                     'motive'                => $request->motive,
                     'transfer_type_id'      => $transferType->id,
-                    'total_balance'         => ($accountNumberTo->available_balance + $request->amount_deposited)
                 ]);
 
                 $accountNumberFrom->current_balance   = ($accountNumberFrom->current_balance - $request->amount_deposited);

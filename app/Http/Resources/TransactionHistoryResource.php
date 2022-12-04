@@ -19,7 +19,6 @@ class TransactionHistoryResource extends JsonResource
             'transaction_code'          => $this->transaction_code,
             'transaction_date'          => $this->transaction_date,
             'amount_deposited'          => $this->amount_deposited,
-            'total_balance'             =>$this->total_balance,
             'motive'                    => $this->motive,
             'transaction_type'          => $this->transferType->name,
             'transaction_type_id'       => $this->transferType->id,

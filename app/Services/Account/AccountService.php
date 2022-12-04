@@ -43,10 +43,11 @@ class AccountService implements AccountInterface {
         if(is_null($user)){
             throw new ResourceNotFoundException("User account not found");
         }
-
-        // dd($user->accounts->toArray());
-        // dd($user->id);
-        return new AccountCollection($user->accounts, $user);
+        $user_accounts = [];
+        foreach($user->accounts as $account){
+            array_push($user_accounts, new AccountResource($account, $user));
+        }
+        return $user_accounts;
 
     }
 

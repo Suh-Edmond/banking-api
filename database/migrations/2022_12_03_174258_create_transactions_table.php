@@ -23,7 +23,6 @@ class CreateTransactionsTable extends Migration
             $table->string('account_number_from');
             $table->string('account_number_to');
             $table->enum('status', ['COMPLETED', 'PENDING', 'DECLINED', 'FAILED']);
-            $table->decimal('total_balance', 19, 2);
             $table->timestamps();
 
             $table->foreign('transfer_type_id')->references('id')->on('transfer_types');
