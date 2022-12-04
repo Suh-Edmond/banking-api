@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
@@ -58,12 +59,16 @@ class Handler extends ExceptionHandler
             return response()->json(['message' => "Resource not found", "status"=> 404], 404);
         }
 
+        if($exception instanceof Exception && $request->wantsJson()){
+            return response()->json(['message' => $exception->getMessage(), "status"=> 424], 424);
+        }
+
         if($exception instanceof UnauthorizedException && $request->wantsJson()) {
-            return response()->json(["message" => "The provided Credentials are Invalid", "status" => 401], 401);
+            return response()->json(["message" => $exception->getMessage(), "status" => 401], 401);
         }
 
         if($exception instanceof ResourceNotFoundException && $request->wantsJson()) {
-            return response()->json(["message"  => "User account not found", "status" => 404], 404);
+            return response()->json(["message"  => $exception->getMessage(), "status" => 404], 404);
         }
 
         return parent::render($request, $exception);

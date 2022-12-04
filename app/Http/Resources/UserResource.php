@@ -36,7 +36,7 @@ class UserResource extends JsonResource
             'box_number'     => $this->box_number,
             'created_at'     => $this->created_at,
             'updated_at'     => $this->updated_at,
-            'roles'          => RoleResource::collection($this->roles),
+            'roles'          => $this->roles,
             'token'          => $this->token,
         ];
     }

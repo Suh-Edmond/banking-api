@@ -4,10 +4,8 @@ namespace App\Interfaces\Transaction;
 
 interface TransactionInterface  {
 
-    public function initiateBankTransfer();
+    public function initiateTransfer($request);
 
-    public function checkAccountTransactions();
-
-    public function getTransactionDetails();
+    public function retrieveAccountTransactions($request);
 
 }

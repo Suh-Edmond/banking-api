@@ -15,7 +15,8 @@ class Account extends Model
         'account_type_id',
         'telephone',
         'account_number',
-        'status'
+        'status',
+        'currency'
     ];
 
     public function user()
@@ -28,8 +29,8 @@ class Account extends Model
         return $this->belongsTo(AccountType::class);
     }
 
-    public function transfers()
+    public function transactions()
     {
-        return $this->hasMany(Transfer::class, 'account_number_from', 'account_number_to');
+        return $this->hasMany(Transaction::class, 'account_number_from', 'account_number_to');
     }
 }

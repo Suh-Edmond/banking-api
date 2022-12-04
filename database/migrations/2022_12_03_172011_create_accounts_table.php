@@ -22,6 +22,7 @@ class CreateAccountsTable extends Migration
             $table->double('current_balance', 19, 2)->default(10000.00);
             $table->double('available_balance', 19, 2)->default(10000.00);
             $table->string('telephone')->unique();
+            $table->string('currency', 6);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

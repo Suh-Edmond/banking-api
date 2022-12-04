@@ -3,37 +3,59 @@
 namespace App\Services\Account;
 
 use App\Constants\AccountStatus;
-use App\Constants\BankInfo;
 use App\Http\Resources\AccountBalanceResource;
+use App\Http\Resources\AccountCollection;
 use App\Http\Resources\AccountResource;
 use App\Interfaces\Account\AccountInterface;
 use App\Models\Account;
+use App\Models\AccountType;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Illuminate\Support\Str;
 
 class AccountService implements AccountInterface {
 
     public function createAccount($request)
     {
         $user = User::find($request->user_id);
-        if(! $user) {
-            throw new ResourceNotFoundException();
+        if(is_null($user)) {
+            throw new ResourceNotFoundException("User account not found");
         }
-        $created = Account::create([
+        $account_type = AccountType::find($request->account_type_id);
+        if(is_null($account_type)){
+            throw new ResourceNotFoundException("Invalid Account type! The account_type_id does not exist");
+        }
+        $saved = Account::create([
             'user_id'        => $user->id,
-            'acount_type'    => $request->account_type,
+            'account_type_id' => $account_type->id,
             'status'         => AccountStatus::ACTIVE,
             'account_number' => $this->generateAccountNumber(),
             'telephone'      => $request->telephone,
+            'currency'       => 'XAF'
         ]);
 
-        return new AccountResource($created, $user);
+        return $saved;
+    }
+
+    public function getUserAccounts($id)
+    {
+        $user = User::find($id);
+        if(is_null($user)){
+            throw new ResourceNotFoundException("User account not found");
+        }
+
+        // dd($user->accounts->toArray());
+        // dd($user->id);
+        return new AccountCollection($user->accounts, $user);
+
     }
 
     public function getAccountInfo($id)
     {
-        $account = Account::findOrFail($id);
+        $account = Account::find($id);
+        if(is_null($account)){
+            throw new ResourceNotFoundException("Account not found");
+        }
 
         return new AccountResource($account, $account->user);
     }
@@ -42,22 +64,23 @@ class AccountService implements AccountInterface {
     public function checkAccountBalance($request)
     {
         $account = Account::where('account_number', $request->account_number)->get();
-        if(! $account) {
+        if(is_null($account)) {
             throw new ResourceNotFoundException("No account found with this account number");
         }
 
-        return new AccountBalanceResource($account);
+        return new AccountBalanceResource($account[0]);
     }
 
 
     private function generateAccountNumber()
     {
-        $uuid         = Str::uuid()->toString();
-        $uuid         = trim($uuid, '-');
-        $current_year = date("Y");
-        $uuid         =  substr($uuid, 0, 14);
-        $accNum       = $uuid.$current_year;
 
+        $accNum  = "";
+        $current_year = date("Y");
+        for($i = 0; $i < 8; $i++){
+            $accNum = $accNum.rand(0, 9);
+        }
+        $accNum = $accNum.$current_year;
         return $accNum;
     }
 }

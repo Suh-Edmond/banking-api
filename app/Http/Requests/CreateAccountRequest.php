@@ -25,8 +25,8 @@ class CreateAccountRequest extends FormRequest
     {
         return [
             'user_id'          => 'required|string',
-            'account_type_id'  => 'required|in:CURRENT, SAVING',
-            'telephone'         => 'required|max:9'
+            'account_type_id'  => 'required|string',
+            'telephone'        => 'required|max:9|unique:accounts,telephone'
         ];
     }
 }

@@ -24,9 +24,12 @@ class MoneyTransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'to_account_number'     => 'required|string',
-            'from_account_number'   => 'required|string',
-            'amount_deposited'      => 'required|min:1000'
+            'account_number_to'     => 'required|string',
+            'account_number_from'   => 'required|string',
+            'amount_deposited'      => 'required|numeric|between:1000,99999999999999',
+            'transaction_date'      => 'required|string|date',
+            'motive'                => 'required|string',
+            'transfer_type_id'      => 'required|string',
         ];
     }
 }

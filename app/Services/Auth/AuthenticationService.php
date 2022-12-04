@@ -8,12 +8,15 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Constants\Roles;
+use App\Models\CustomRole;
+use Exception;
 use Illuminate\Validation\UnauthorizedException;
 
 class AuthenticationService implements AuthenticationInterface {
 
     public function registerUser($request)
     {
+      try {
         $created = User::create([
             'first_name'        => $request->first_name,
             'last_name'         => $request->last_name,
@@ -29,7 +32,11 @@ class AuthenticationService implements AuthenticationInterface {
             'pob'               => $request->pob
         ]);
 
-        $this->saveUserRole($created, Roles::CUSTOMER);
+        $created->assignRole(CustomRole::findByName(Roles::CUSTOMER, 'api'));
+
+      } catch (\Exception $e) {
+        throw new Exception("Could not create use account". $e->getMessage());
+      }
     }
 
 
@@ -38,20 +45,14 @@ class AuthenticationService implements AuthenticationInterface {
     {
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw new UnauthorizedException();
+        if (is_null($user) || !Hash::check($request->password, $user->password)) {
+            throw new UnauthorizedException("Invalid credentials! Please try again.");
         }
 
         $token = $this->generateToken($user);
         return new UserResource($user, $token);
     }
 
-
-    private function saveUserRole($user, $roleName)
-    {
-        $role = Role::where('name', $roleName)->get();
-        return $user->roles()->sync($role);
-    }
 
 
     private function generateToken($user)

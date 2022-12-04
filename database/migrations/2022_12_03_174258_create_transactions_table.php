@@ -15,15 +15,17 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('transfer_id');
             $table->string('transaction_code')->unique();
-            $table->decimal('amount', 19, 2);
+            $table->decimal('amount_deposited', 19, 2);
             $table->dateTime('transaction_date');
             $table->mediumText('motive');
             $table->uuid('transfer_type_id');
+            $table->string('account_number_from');
+            $table->string('account_number_to');
+            $table->enum('status', ['COMPLETED', 'PENDING', 'DECLINED', 'FAILED']);
+            $table->decimal('total_balance', 19, 2);
             $table->timestamps();
 
-            $table->foreign('transfer_id')->references('id')->on('transfers');
             $table->foreign('transfer_type_id')->references('id')->on('transfer_types');
         });
     }

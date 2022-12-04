@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Role;
 use App\Traits\ResponseTrait;
 use Closure;
 use Illuminate\Http\Request;
 use App\Constants\Roles;
+use App\Models\CustomRole;
 
 class IsCustomerMiddleware
 {
@@ -20,9 +20,9 @@ class IsCustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->hasRole(Role::where('name',Roles::CUSTOMER))){
+        if($request->user()->hasRole(CustomRole::findByName(Roles::CUSTOMER, 'api'))){
             return $next($request);
         }
-        return ResponseTrait::sendError('Access denied', 'You dont have the role to access this route', 403);
+        return ResponseTrait::sendError('Access denied', 'You dont have the role to make this request', 403);
     }
 }

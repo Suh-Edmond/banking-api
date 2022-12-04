@@ -22,11 +22,11 @@ class AccountBalanceResource extends JsonResource
     {
         return [
             'account_number'     => $this->account->account_number,
-            'account_type'       => $this->account->account_type,
+            'account_type'       => $this->account->accountType->name,
             'current_balance'    => $this->account->current_balance,
             'available_balance'  => $this->account->available_balance,
-            'bank_name'          => $this->account->bank_name,
-            'bank_code'          => $this->account->bank_code
+            'telephone'          => $this->account->telephone,
+            'currency'           => $this->account->currency
         ];
     }
 }

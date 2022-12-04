@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckAccountBalanceRequest;
@@ -19,9 +18,17 @@ class AccountController extends Controller
 
     public function createAccount(CreateAccountRequest $createAccountRequest)
     {
-        $data = $this->accountService->createAccount($createAccountRequest);
+        $created = $this->accountService->createAccount($createAccountRequest);
+        $account = $this->accountService->getAccountInfo($created->id);
 
-        return $this->sendResponse($data, "Banck Account created successfully", 201);
+        return $this->sendResponse($account, "Bank Account created successfully", 201);
+    }
+
+    public function getUserAccounts($id)
+    {
+        $data = $this->accountService->getUserAccounts($id);
+
+        return $this->sendResponse($data, "success", 200);
     }
 
     public function getAccountInfo($id)

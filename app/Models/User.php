@@ -6,10 +6,12 @@ use App\Traits\Uuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, Uuid;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +42,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected  $guard_name = "api";
     /**
      * The attributes that should be cast.
      *
@@ -48,10 +51,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function roles() {
-        return $this->belongsToMany(Role::class, 'user_roles');
-    }
 
     public function accounts() {
         return $this->hasMany(Account::class);
