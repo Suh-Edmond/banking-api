@@ -2,7 +2,6 @@
 
 namespace App\Services\Transaction;
 
-use App\Exceptions\InsufficientAccountBalanceException;
 use App\Http\Resources\TransactionHistoryResource;
 use App\Interfaces\Transaction\TransactionInterface;
 use App\Models\Account;
@@ -41,7 +40,7 @@ class TransactionService implements TransactionInterface {
                     'account_number_to'     => $request->account_number_to,
                     'amount_deposited'      => $request->amount_deposited,
                     'transaction_date'      => $request->transaction_date,
-                    'transaction_code'      => $this->generateTransactionCode(),
+                    'transaction_code'      => $this->generateCode(10),
                     'motive'                => $request->motive,
                     'transfer_type_id'      => $transferType->id,
                 ]);

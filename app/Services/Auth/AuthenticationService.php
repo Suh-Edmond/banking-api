@@ -27,7 +27,6 @@ class AuthenticationService implements AuthenticationInterface {
             'location'          => $request->location,
             'box_number'        => $request->box_number,
             'password'          => Hash::make($request->password),
-            'email_verified_at' => now(),
             'dob'               => $request->dob,
             'pob'               => $request->pob
         ]);
