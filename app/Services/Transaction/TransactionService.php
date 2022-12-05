@@ -2,6 +2,7 @@
 
 namespace App\Services\Transaction;
 
+use App\Constants\TransactionStatus;
 use App\Http\Resources\TransactionHistoryResource;
 use App\Interfaces\Transaction\TransactionInterface;
 use App\Models\Account;
@@ -35,6 +36,7 @@ class TransactionService implements TransactionInterface {
         }
         try {
             DB::transaction(function () use ($request, $transferType, $accountNumberFrom, $accountNumberTo) {
+
                 Transaction::create([
                     'account_number_from'   => $request->account_number_from,
                     'account_number_to'     => $request->account_number_to,
@@ -42,6 +44,7 @@ class TransactionService implements TransactionInterface {
                     'transaction_date'      => $request->transaction_date,
                     'transaction_code'      => $this->generateCode(10),
                     'motive'                => $request->motive,
+                    'status'                => TransactionStatus::COMPLETED,
                     'transfer_type_id'      => $transferType->id,
                 ]);
 

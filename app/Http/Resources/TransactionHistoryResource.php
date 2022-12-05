@@ -23,6 +23,7 @@ class TransactionHistoryResource extends JsonResource
             'transaction_type'          => $this->transferType->name,
             'transaction_type_id'       => $this->transferType->id,
             'account_number_from'       => $this->account_number_from,
+            'status'                    => $this->status,
             'account_number_to'         => $this->account_number_to,
             'created_at'                => $this->created_at,
             'updated_by'                => $this->updated_at
