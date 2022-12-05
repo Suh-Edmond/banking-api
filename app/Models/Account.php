@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuid;
 
 class Account extends Model
 {
@@ -12,19 +12,25 @@ class Account extends Model
 
     protected $fillable = [
         'user_id',
-        'account_type',
+        'account_type_id',
+        'telephone',
+        'account_number',
         'status',
-        'current_balance',
-        'available_balance',
-        'account_number'
+        'currency'
     ];
 
-
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function transactions() {
-        return $this->hasMany(Transaction::class);
+    public function accountType()
+    {
+        return $this->belongsTo(AccountType::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'account_number_from', 'account_number_to');
     }
 }

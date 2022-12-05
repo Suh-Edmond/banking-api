@@ -11,16 +11,23 @@ class Transaction extends Model
     use HasFactory, Uuid;
 
     protected $fillable = [
-        'transaction_number',
-        'to_account_number',
-        'from_account_number',
+        'transaction_code',
         'amount_deposited',
+        'transaction_date',
+        'motive',
+        'transfer_type_id',
+        'account_number_from',
+        'account_number_to',
         'status',
-        'account_id'
     ];
 
+    public function transferType()
+    {
+        return $this->belongsTo(TransferType::class);
+    }
 
-    public function account() {
+    public function account()
+    {
         return $this->belongsTo(Account::class);
     }
 }

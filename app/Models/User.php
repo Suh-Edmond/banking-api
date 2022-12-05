@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Uuid;
+    use HasApiTokens, Notifiable, Uuid;
+    use HasRoles, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,9 @@ class User extends Authenticatable
         'box_number',
         'email',
         'password',
-
+        'gender',
+        'dob',
+        'pob'
     ];
 
     /**
@@ -40,6 +43,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected  $guard_name = "api";
     /**
      * The attributes that should be cast.
      *
@@ -48,10 +52,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function roles() {
-        return $this->belongsToMany(Role::class, 'user_roles');
-    }
 
     public function accounts() {
         return $this->hasMany(Account::class);
