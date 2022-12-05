@@ -16,7 +16,7 @@ class RoleFactory extends Factory
     {
         return [
             'name'          => 'CUSTOMER',
-            'guard_name' => 'api',
+            'guard_name'   => 'api',
             'id'         => Uuid::uuid4()
         ];
     }
