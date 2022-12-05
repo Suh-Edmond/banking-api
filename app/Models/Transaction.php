@@ -19,7 +19,6 @@ class Transaction extends Model
         'account_number_from',
         'account_number_to',
         'status',
-        'total_balance'
     ];
 
     public function transferType()

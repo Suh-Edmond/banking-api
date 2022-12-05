@@ -33,6 +33,8 @@ class UserResource extends JsonResource
             'location'       => $this->location,
             'gender'         => $this->gender,
             'country'        => $this->country,
+            'pob'            => $this->pob,
+            'dob'            => $this->dob,
             'box_number'     => $this->box_number,
             'created_at'     => $this->created_at,
             'updated_at'     => $this->updated_at,

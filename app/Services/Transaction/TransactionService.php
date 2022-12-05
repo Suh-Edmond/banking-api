@@ -2,7 +2,7 @@
 
 namespace App\Services\Transaction;
 
-use App\Exceptions\InsufficientAccountBalanceException;
+use App\Constants\TransactionStatus;
 use App\Http\Resources\TransactionHistoryResource;
 use App\Interfaces\Transaction\TransactionInterface;
 use App\Models\Account;
@@ -36,15 +36,16 @@ class TransactionService implements TransactionInterface {
         }
         try {
             DB::transaction(function () use ($request, $transferType, $accountNumberFrom, $accountNumberTo) {
+
                 Transaction::create([
                     'account_number_from'   => $request->account_number_from,
                     'account_number_to'     => $request->account_number_to,
                     'amount_deposited'      => $request->amount_deposited,
                     'transaction_date'      => $request->transaction_date,
-                    'transaction_code'      => $this->generateTransactionCode(),
+                    'transaction_code'      => $this->generateCode(10),
                     'motive'                => $request->motive,
+                    'status'                => TransactionStatus::COMPLETED,
                     'transfer_type_id'      => $transferType->id,
-                    'total_balance'         => ($accountNumberTo->available_balance + $request->amount_deposited)
                 ]);
 
                 $accountNumberFrom->current_balance   = ($accountNumberFrom->current_balance - $request->amount_deposited);

@@ -4,16 +4,17 @@ namespace App\Services\Account;
 
 use App\Constants\AccountStatus;
 use App\Http\Resources\AccountBalanceResource;
-use App\Http\Resources\AccountCollection;
 use App\Http\Resources\AccountResource;
 use App\Interfaces\Account\AccountInterface;
 use App\Models\Account;
 use App\Models\AccountType;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\CodeGenerationTrait;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class AccountService implements AccountInterface {
+
+    use CodeGenerationTrait;
 
     public function createAccount($request)
     {
@@ -29,7 +30,7 @@ class AccountService implements AccountInterface {
             'user_id'        => $user->id,
             'account_type_id' => $account_type->id,
             'status'         => AccountStatus::ACTIVE,
-            'account_number' => $this->generateAccountNumber(),
+            'account_number' => $this->generateCode(8),
             'telephone'      => $request->telephone,
             'currency'       => 'XAF'
         ]);
@@ -43,10 +44,11 @@ class AccountService implements AccountInterface {
         if(is_null($user)){
             throw new ResourceNotFoundException("User account not found");
         }
-
-        // dd($user->accounts->toArray());
-        // dd($user->id);
-        return new AccountCollection($user->accounts, $user);
+        $user_accounts = [];
+        foreach($user->accounts as $account){
+            array_push($user_accounts, new AccountResource($account, $user));
+        }
+        return $user_accounts;
 
     }
 
@@ -71,16 +73,4 @@ class AccountService implements AccountInterface {
         return new AccountBalanceResource($account[0]);
     }
 
-
-    private function generateAccountNumber()
-    {
-
-        $accNum  = "";
-        $current_year = date("Y");
-        for($i = 0; $i < 8; $i++){
-            $accNum = $accNum.rand(0, 9);
-        }
-        $accNum = $accNum.$current_year;
-        return $accNum;
-    }
 }
