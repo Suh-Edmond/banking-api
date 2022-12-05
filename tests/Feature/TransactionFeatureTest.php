@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TransactionTest extends TestCase
+class TransactionFeatureTest extends TestCase
 {
     use DatabaseMigrations;
     use DatabaseTransactions;

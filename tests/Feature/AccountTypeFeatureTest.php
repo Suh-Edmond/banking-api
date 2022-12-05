@@ -4,10 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\AccountType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AccountTypeServiceTest extends TestCase
+class AccountTypeFeatureTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -7,11 +7,9 @@ use App\Models\Account;
 use App\Models\AccountType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Jchook\AssertThrows\AssertThrows;
 use Tests\TestCase;
 
-class AccountServiceTest extends TestCase
+class AccountFeatureTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -182,4 +180,5 @@ class AccountServiceTest extends TestCase
         $response->assertSessionHasErrors('account_number');
 
     }
+
 }

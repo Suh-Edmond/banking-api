@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TransaferTypeTest extends TestCase
+class TransaferTypeFeatureTest extends TestCase
 {
     use RefreshDatabase;
 
