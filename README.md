@@ -15,7 +15,23 @@ This API provides the following Services
 
 ## Package used
 - Laravel Sanctum for authentication
-- Spatie for Role/Permission Management
-- PhpUnit
+- Laravel Spatie for Role/Permission Management
 
-The API is design using 
+## Server Requirements
+- PHP 7.4
+## Noted
+The API makes used of Laravel Spatie for Role/Permission Management, but only the roles are been used for authorization.
+## API Design
+Below is an image of the Database structure of the of the API.
+
+## How to Start locally
+- Clone the project using the link, the latest code is on the *main* branch
+- Open it in your favorite IDE and run composer install
+- Generate the app key by running *php artisan key:generate*
+- Setup you daabase connection in you *.env* file
+- Run the migration using the command *php artisan migrate*
+- Seed the database with the started data
+- You can view all the endpoints been exposed from the /routes/api.php file.
+
+### The fully documentation of the API can be found by following the link below
+
