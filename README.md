@@ -24,7 +24,7 @@ The API makes used of Laravel Spatie for Role/Permission Management, but only th
 ## API Design
 Below is an image of the Database structure of the of the API.
 
-### How to Start locally
+### How to start locally
 - Clone the project using the link, the latest code is on the *main* branch
 - Open it in your favorite IDE and run composer install
 - Generate the app key by running *php artisan key:generate*
