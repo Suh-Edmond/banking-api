@@ -10,21 +10,21 @@ This API provides the following Services
 - Perform bank transfer between accounts
 - Retrieve transfer history for a given account
 
-## Framework used
+### Framework used
 - Laravel 8.0
 
-## Package used
+### Package used
 - Laravel Sanctum for authentication
 - Laravel Spatie for Role/Permission Management
 
-## Server Requirements
+### Server Requirements
 - PHP 7.4
 #### Noted
 The API makes used of Laravel Spatie for Role/Permission Management, but only the roles are been used for authorization.
 ## API Design
 Below is an image of the Database structure of the of the API.
 
-## How to Start locally
+### How to Start locally
 - Clone the project using the link, the latest code is on the *main* branch
 - Open it in your favorite IDE and run composer install
 - Generate the app key by running *php artisan key:generate*
