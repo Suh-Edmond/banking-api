@@ -19,7 +19,7 @@ This API provides the following Services
 
 ## Server Requirements
 - PHP 7.4
-## Noted
+#### Noted
 The API makes used of Laravel Spatie for Role/Permission Management, but only the roles are been used for authorization.
 ## API Design
 Below is an image of the Database structure of the of the API.
