@@ -13,7 +13,7 @@ class CodeGenerationTraitTest extends TestCase
      *
      * @return void
      */
-    public function test_generateCode_should_generate_a_string_numbers_of_any_given_size()
+    public function testGenerateCodeShouldGenerateAStringNumbersOfAnyGivenSize()
     {
         $obj = $this->getObjectForTrait(CodeGenerationTrait::class);
 

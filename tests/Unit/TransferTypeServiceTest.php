@@ -24,7 +24,7 @@ class TransferTypeServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_getTransferTypes_should_return_all_available_type()
+    public function testGetTransferTypesShouldReturnAllAvailableType()
     {
         $response = $this->transferTypeService->getTransferTypes();
 

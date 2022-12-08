@@ -32,7 +32,7 @@ class AccountServiceTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_createAccount_should_create_an_account_when_user_account_exist_and_account_type_exist()
+    public function testCreateAccountShouldCreateAnAccountWhenUserAccountExistAndAccountTypeExist()
     {
 
         $user = User::factory()->create();
@@ -60,7 +60,7 @@ class AccountServiceTest extends TestCase
         $this->assertDatabaseHas(Account::class, ['status' => AccountStatus::ACTIVE]);
     }
 
-    public function test_createAccount_should_throw_resource_not_found_exception_when_user_account_not_exist()
+    public function testCreateAccountShouldThrowResourceNotFoundExceptionWhenUserAccountNotExist()
     {
 
         $this->data['account_type_id'] = '3403423';
@@ -80,7 +80,7 @@ class AccountServiceTest extends TestCase
 
     }
 
-    public function test_createAccount_should_throw_resource_not_found_exception_when_account_type_not_exist()
+    public function testCreateAccountShouldThrowResourceNotFoundExceptionWhenAccountTypeNotExist()
     {
         $user = User::factory()->create();
 
@@ -104,7 +104,7 @@ class AccountServiceTest extends TestCase
 
     }
 
-    public function test_getUserAccounts_should_throw_resource_not_found_when_user_does_not_exist()
+    public function testGetUserAccountsShouldThrowResourceNotFoundWhenUserDoesNotExist()
     {
         $this->data['id'] = '9202323';
         $userMock = $this->getMockBuilder(User::class)->addMethods(['find'])->getMock();
@@ -119,7 +119,7 @@ class AccountServiceTest extends TestCase
         $this->accountService->getUserAccounts($this->data['id']);
     }
 
-    public function test_getUserAccounts_should_return_user_accounts_when_user_exist_and_has_accounts()
+    public function testGetUserAccountsShouldReturnUserAccountsWhenUserExistAndHasAccounts()
     {
         $user = User::factory()->create();
         $accountType = AccountType::factory()->create();
@@ -130,20 +130,24 @@ class AccountServiceTest extends TestCase
 
         $data['id'] = $user['id'];
 
-        $userMock = $this->getMockBuilder(User::class)->addMethods(['find'])->onlyMethods(['accounts'])->getMock();
+        $userMock = $this->getMockBuilder(User::class)->addMethods(['find'])->getMock();
 
         $userMock->expects($this->once())->method('find')->willReturn($user);
-        $userMock->expects($this->once())->willReturn('accounts')->willReturn($account);
 
         $userMock->find($data['id']);
-        $userMock->accounts();
 
         $userAccounts = $this->accountService->getUserAccounts($data['id']);
 
         $this->assertCount(1, $userAccounts);
+        $this->assertEquals($account['user_id'], $userAccounts[0]->user_id);
+        $this->assertEquals($account['id'], $userAccounts[0]->id);
+        $this->assertEquals($account['account_type_id'], $userAccounts[0]->account_type_id);
+        $this->assertEquals($account['current_balance'], $userAccounts[0]->current_balance);
+        $this->assertEquals($account['available_balance'], $userAccounts[0]->available_balance);
+        $this->assertEquals($account['currency'], $userAccounts[0]->currency);
     }
 
-    public function test_getAccountInfo_should_throw_exception_when_account_not_found()
+    public function testGetAccountInfoShouldThrowExceptionWhenAccountNotFound()
     {
         $this->data['id'] = '90349-348342';
 
@@ -159,7 +163,7 @@ class AccountServiceTest extends TestCase
         $this->accountService->getAccountInfo($this->data['id']);
     }
 
-    public function test_getAccountInfo_should_return_account_resource_when_account_exist()
+    public function testGetAccountInfoShouldReturnAccountResourceWhenAccountExist()
     {
         $user = User::factory()->create();
         $accountType = AccountType::factory()->create();
