@@ -34,4 +34,11 @@ Below is an image of the Database structure of the of the API.
 - You can view all the endpoints been exposed from the /routes/api.php file.
 
 ### The fully documentation of the API can be found by following the link below
+[Link to the postman workspace](https://red-crater-101914.postman.co/workspace/69a59689-bdcf-4ac1-b486-b40d3b4b91ed)
+[Link to the AccountType Collection](https://documenter.getpostman.com/view/16937718/2s8YzRy2uh)
+[Link to the Authentication collection](https://documenter.getpostman.com/view/16937718/2s8YzRy2z7)
+[Link to Bank Account collection](https://documenter.getpostman.com/view/16937718/2s8YzRy2z8)
+[Link to the Transaction collection](https://documenter.getpostman.com/view/16937718/2s8YzRy2zA)
+[Link to the Transfer Type collection](https://documenter.getpostman.com/view/16937718/2s8YzRy2zB)
+
 
