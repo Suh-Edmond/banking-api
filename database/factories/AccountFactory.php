@@ -22,7 +22,9 @@ class AccountFactory extends Factory
             'status'         => AccountStatus::ACTIVE,
             'account_number' => $this->generateCode(8),
             'telephone'      => '674567091',
-            'currency'       => 'XAF'
+            'currency'       => 'XAF',
+            'current_balance'=> 10000.00,
+            'available_balance' => 10000.00
         ];
     }
 }
