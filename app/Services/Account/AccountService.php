@@ -26,7 +26,7 @@ class AccountService implements AccountInterface {
         if(is_null($account_type)){
             throw new ResourceNotFoundException("Invalid Account type! The account_type_id does not exist");
         }
-        $saved = Account::create([
+        return Account::create([
             'user_id'        => $user->id,
             'account_type_id' => $account_type->id,
             'status'         => AccountStatus::ACTIVE,
@@ -34,11 +34,9 @@ class AccountService implements AccountInterface {
             'telephone'      => $request->telephone,
             'currency'       => 'XAF'
         ]);
-
-        return $saved;
     }
 
-    public function getUserAccounts($id)
+    public function getUserAccounts($id): array
     {
         $user = User::find($id);
         if(is_null($user)){
@@ -52,7 +50,7 @@ class AccountService implements AccountInterface {
 
     }
 
-    public function getAccountInfo($id)
+    public function getAccountInfo($id): AccountResource
     {
         $account = Account::find($id);
         if(is_null($account)){
@@ -63,7 +61,7 @@ class AccountService implements AccountInterface {
     }
 
 
-    public function checkAccountBalance($request)
+    public function checkAccountBalance($request): AccountBalanceResource
     {
         $account = Account::where('account_number', $request->account_number)->get();
         if(is_null($account)) {
