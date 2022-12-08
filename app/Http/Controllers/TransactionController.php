@@ -9,7 +9,7 @@ use App\Services\Transaction\TransactionService;
 
 class TransactionController extends Controller
 {
-    private $transactionService;
+    private TransactionService $transactionService;
 
     public function __construct(TransactionService $transactionService)
     {
@@ -17,14 +17,15 @@ class TransactionController extends Controller
     }
 
 
-    public function initiateTransfer(MoneyTransferRequest $moneyTransferRequest)
+    public function initiateTransfer(MoneyTransferRequest $moneyTransferRequest): \Illuminate\Http\Response
     {
         $this->transactionService->initiateTransfer($moneyTransferRequest);
 
         return $this->sendResponse(null, "Transaction completed successfully", 201);
     }
 
-    public function retrieveAccountTransactions(CheckTransactionHistoryRequest $request){
+    public function retrieveAccountTransactions(CheckTransactionHistoryRequest $request)
+    {
         $data = $this->transactionService->retrieveAccountTransactions($request);
 
         return $this->sendResponse($data, 'success', 200);

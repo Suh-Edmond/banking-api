@@ -40,7 +40,7 @@ class AuthenticationService implements AuthenticationInterface {
 
 
 
-    public function loginUser($request)
+    public function loginUser($request): UserResource
     {
         $user = User::where('email', $request->email)->first();
 
@@ -56,6 +56,7 @@ class AuthenticationService implements AuthenticationInterface {
 
     private function generateToken($user)
     {
+        $token = null;
         if (!is_null($user)) {
             $token = $user->createToken('access-token', $user->roles->toArray())->plainTextToken;
         }

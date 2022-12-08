@@ -17,7 +17,7 @@ class AccountTypeFactory extends Factory
     {
         return [
             'id'           => Str::uuid()->toString(),
-            'name'         => $this->faker->name(),
+            'name'         => $this->faker->randomElement(['SAVING', 'CURRENT']),
             'description'  => $this->faker->paragraph()
         ];
     }

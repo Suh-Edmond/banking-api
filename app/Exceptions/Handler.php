@@ -59,10 +59,6 @@ class Handler extends ExceptionHandler
             return response()->json(['message' => "Resource not found", "status"=> 404], 404);
         }
 
-        if($exception instanceof Exception && $request->wantsJson()){
-            return response()->json(['message' => $exception->getMessage(), "status"=> 424], 424);
-        }
-
         if($exception instanceof UnauthorizedException && $request->wantsJson()) {
             return response()->json(["message" => $exception->getMessage(), "status" => 401], 401);
         }
