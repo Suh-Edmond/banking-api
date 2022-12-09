@@ -27,12 +27,13 @@ class TransactionService implements TransactionInterface {
         if(is_null($accountNumberTo)) {
             throw new ResourceNotFoundException("account_number_to not found");
         }
-        $transferType  = TransferType::find($request->transfer_type_id)->first();
+
+        $transferType  = TransferType::find($request->transfer_type_id);
         if(is_null($transferType)) {
             throw new ResourceNotFoundException("Invalid transfer_type_id");
         }
         if(($accountNumberFrom->available_balance - $request->amount_deposited) < 1000.0){
-            throw new Exception("Cannot perform a transfer, Insufficient balance.", 424);
+            throw new Exception("Cannot perform a transfer, Insufficient balance.");
         }
         try {
             DB::transaction(function () use ($request, $transferType, $accountNumberFrom, $accountNumberTo) {
