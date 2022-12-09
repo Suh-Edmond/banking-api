@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
-class RoleFactory extends Factory
+class CustomRoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,8 +16,8 @@ class RoleFactory extends Factory
     {
         return [
             'name'          => 'CUSTOMER',
-            'guard_name'   => 'api',
-            'id'         => Uuid::uuid4()
+            'guard_name'    => 'api',
+            'id'            => Str::uuid()->toString(),
         ];
     }
 }
