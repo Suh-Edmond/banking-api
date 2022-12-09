@@ -12,6 +12,7 @@ use App\Models\CustomRole;
 use Exception;
 use Illuminate\Validation\UnauthorizedException;
 
+
 class AuthenticationService implements AuthenticationInterface {
 
     public function registerUser($request)

@@ -17,7 +17,7 @@ class TransactionController extends Controller
     }
 
 
-    public function initiateTransfer(MoneyTransferRequest $moneyTransferRequest): \Illuminate\Http\Response
+    public function initiateTransfer(MoneyTransferRequest $moneyTransferRequest)
     {
         $this->transactionService->initiateTransfer($moneyTransferRequest);
 
