@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Constants\Roles;
 use App\Models\CustomRole;
+use Spatie\Permission\Models\Role;
 
 class IsCustomerMiddleware
 {
@@ -20,7 +21,8 @@ class IsCustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->hasRole(CustomRole::findByName(Roles::CUSTOMER, 'api'))){
+
+        if($request->user()->hasRole(Role::findByName(Roles::CUSTOMER, 'api'))){
             return $next($request);
         }
         return ResponseTrait::sendError('Access denied', 'You dont have the role to make this request', 403);

@@ -68,7 +68,7 @@ class TransactionService implements TransactionInterface {
     {
         $transaction = Transaction::where('account_number_from', $request->account_number)
                                 ->orWhere('account_number_to', $request->account_number)
-                                ->orderBy('created_at', 'DESC')
+                                 ->orderBy('created_at', 'DESC')
                                 ->get();
 
         return TransactionHistoryResource::collection($transaction);
